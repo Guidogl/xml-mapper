@@ -1,0 +1,20 @@
+{
+  "name": "xml-mapper",
+  "owner": {
+    "name": "guidogl",
+    "email": "guidogl@gip.ventures"
+  },
+  "metadata": {
+    "description": "Map, transform, and validate source data into XML conforming to a target DTD.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "xml-mapper",
+      "description": "Map, transform, and validate source data into XML conforming to a target DTD.",
+      "source": "./",
+      "strict": false,
+      "skills": ["./"]
+    }
+  ]
+}

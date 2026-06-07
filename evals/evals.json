@@ -1,0 +1,26 @@
+{
+  "skill_name": "xml",
+  "evals": [
+    {
+      "id": 0,
+      "name": "clean-mapping",
+      "prompt": "I've got a CSV export of our products (products.csv) and a DTD our system requires (catalog.dtd). Can you turn the CSV into an XML catalog that's valid against the DTD? Save it as catalog.xml.",
+      "expected_output": "A catalog.xml file with one <product> per CSV row, children in the order name/price/category, sku as the ID attribute, and stock mapped from the in_stock column to the (in-stock|out-of-stock) enumeration (yes->in-stock, no->out-of-stock). Should be confirmed valid by the validator.",
+      "files": ["inputs/products.csv", "inputs/catalog.dtd"]
+    },
+    {
+      "id": 1,
+      "name": "ambiguous-enum-split",
+      "prompt": "Here's people.csv and members.dtd. Please produce roster.xml that's valid against the DTD.",
+      "expected_output": "The skill should NOT silently guess. It should recognize ambiguities and ask the user (batched): how to split full_name into firstName/lastName (esp. the 3-token 'Jordan Avery Lee'), how to map gender M/F to the (male|female|nonbinary) enum, and how membership gold/silver maps to tier. Producing valid XML without surfacing these is a failure of the skill's core behavior.",
+      "files": ["inputs/people.csv", "inputs/members.dtd"]
+    },
+    {
+      "id": 2,
+      "name": "fix-invalid",
+      "prompt": "Is order.xml actually valid against order.dtd? I think something's off. If it's broken, tell me exactly what and give me a corrected version.",
+      "expected_output": "Should run the validator, report the three problems (item before customer / missing total / child order, priority='urgent' not in enum, qty='2 units' not a valid NMTOKEN), explain them, and produce a corrected order.xml that passes validation (reordering customer first, fixing or asking about priority, fixing the qty token, adding a <total>). The missing <total> has no source value, so asking the user for it is the ideal behavior.",
+      "files": ["inputs/order.xml", "inputs/order.dtd"]
+    }
+  ]
+}
